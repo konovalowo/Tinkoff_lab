@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Developers Life</string>
+    <string name="gif_image">Gif image</string>
+    <string name="try_again">Повторить</string>
+    <string name="try_again_description">Произошла ошибка при загрузке данных.
+    Проверьте подключение к сети.</string>
+</resources>

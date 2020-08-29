@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/feedRandomFragment">
+
+    <fragment
+        android:id="@+id/feedRandomFragment"
+        android:name="com.example.tinkoff_lab.ui.randomfeed.FeedRandomFragment"
+        android:label="feed_random_fragment"
+        tools:layout="@layout/feed_random_fragment" >
+        <action
+            android:id="@+id/action_feedRandomFragment_to_errorFragment"
+            app:destination="@id/errorFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popUpTo="@id/navigation" />
+    </fragment>
+    <fragment
+        android:id="@+id/errorFragment"
+        android:name="com.example.tinkoff_lab.ui.error.ErrorFragment"
+        android:label="fragment_error"
+        tools:layout="@layout/fragment_error" >
+        <action
+            android:id="@+id/action_errorFragment_to_feedRandomFragment"
+            app:destination="@id/feedRandomFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popUpTo="@id/navigation" />
+    </fragment>
+</navigation>
