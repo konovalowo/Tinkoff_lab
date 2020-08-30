@@ -1,47 +1,56 @@
 package com.example.tinkoff_lab.ui.randomfeed
 
+import android.app.Application
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.tinkoff_lab.api.DevelopersLifeApi
 import com.example.tinkoff_lab.api.Post
+import com.example.tinkoff_lab.database.PostsDatabase
+import com.example.tinkoff_lab.repository.PostsRepository
 import kotlinx.coroutines.launch
 import java.util.*
 
-class FeedRandomViewModel : ViewModel() {
+class FeedRandomViewModel(app: Application) : ViewModel() {
 
-    private val _post = MutableLiveData<Post>()
-    val post: LiveData<Post>
-        get() = _post
+//    private val post = MutableLiveData<Post>()
+//    val post: LiveData<Post>
+//        get() = _post
+    private val postsRepository = PostsRepository(PostsDatabase.getInstance(app))
+
+    val post = postsRepository.post
 
     private val _onLoadFailedEvent = MutableLiveData<Boolean>()
     val onLoadFailedEvent: LiveData<Boolean>
         get() = _onLoadFailedEvent
 
-    private val cacheStack = Stack<Post>()
+//    private val _previousAvailable = MutableLiveData<Boolean>()
+//    val previousAvailable: LiveData<Boolean>
+//        get() = _previousAvailable
 
     init {
-        onNext()
+        loadPost(null)
     }
 
     fun onNext() {
-        loadPost()
+        val feedId = post.value?.feedId
+        loadPost(feedId?.plus(1))
     }
 
     fun onPrevious() {
         // use cached
-        TODO()
+        val feedId = post.value?.feedId
+        loadPost(feedId?.minus(1))
     }
 
-    private fun loadPost() {
+    private fun loadPost(feedId: Int?) {
+
         viewModelScope.launch {
             try {
                 _onLoadFailedEvent.value = false
 
-                val post = DevelopersLifeApi.retrofitService.getRandomPost()
-                _post.value = post
+                Log.i("FeedRandom", "NextfeedId $feedId")
+                postsRepository.getPost(feedId)// id
+
             } catch (e: Exception) {
                 Log.w("FeedRandomViewModel", e.message.toString())
                 onLoadFailed()
@@ -51,5 +60,15 @@ class FeedRandomViewModel : ViewModel() {
 
     private fun onLoadFailed() {
         _onLoadFailedEvent.value = true
+    }
+
+    class Factory(private val app: Application) : ViewModelProvider.Factory {
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(FeedRandomViewModel::class.java)) {
+                @Suppress("UNCHECKED_CAST")
+                return FeedRandomViewModel(app) as T
+            }
+            throw IllegalArgumentException("Unable to construct viewmodel")
+        }
     }
 }

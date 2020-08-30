@@ -1,5 +1,6 @@
 package com.example.tinkoff_lab.ui.randomfeed
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
@@ -25,19 +26,28 @@ class FeedRandomFragment : Fragment() {
 
     private lateinit var viewModel: FeedRandomViewModel
 
+    @SuppressLint("RestrictedApi")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        viewModel = ViewModelProvider(this).get(FeedRandomViewModel::class.java)
+        val application = requireNotNull(this.activity).application
+        val viewModelFactory = FeedRandomViewModel.Factory(application)
 
-        viewModel.post.observe(viewLifecycleOwner, Observer { newPost ->
-            updatePost(newPost)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(FeedRandomViewModel::class.java)
+
+        viewModel.post.observe(viewLifecycleOwner, Observer {
+            updatePost(it)
+            if (it.feedId > 1) {
+                binding.fabPrev.show()
+            } else {
+                binding.fabPrev.hide()
+            }
         })
 
-        viewModel.onLoadFailedEvent.observe(viewLifecycleOwner, Observer { loadFailed ->
-            if (loadFailed) onLoadFailed()
+        viewModel.onLoadFailedEvent.observe(viewLifecycleOwner, Observer {
+            if (it) onLoadFailed()
         })
 
         binding = DataBindingUtil.inflate(
@@ -81,7 +91,7 @@ class FeedRandomFragment : Fragment() {
         binding.postCard.post_name.text = newPost.description
     }
 
-    fun onLoadFailed() {
+    private fun onLoadFailed() {
         // nav to failure screen
         Log.i("FeedRandomFragment", "Navigated")
         this.view?.let {

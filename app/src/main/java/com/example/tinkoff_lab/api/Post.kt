@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "posts")
 data class Post(
-    @PrimaryKey(autoGenerate = true) val feedId: Int,
+    @PrimaryKey(autoGenerate = true) var feedId: Int,
     val id: Int,
     val description: String,
     val votes: Int,
