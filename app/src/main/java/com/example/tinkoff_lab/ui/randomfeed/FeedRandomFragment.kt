@@ -1,15 +1,14 @@
 package com.example.tinkoff_lab.ui.randomfeed
 
 import android.annotation.SuppressLint
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.tinkoff_lab.R
 import com.example.tinkoff_lab.api.Post
@@ -61,7 +60,6 @@ class FeedRandomFragment : Fragment() {
 
         binding.fabNext.setOnClickListener {
             onNext()
-            Log.i("FeedRandomFragment", "Fab pressed")
         }
 
         binding.fabPrev.setOnClickListener {
@@ -73,6 +71,11 @@ class FeedRandomFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         return binding.root
+    }
+
+    override fun onStop() {
+        super.onStop()
+        viewModel.saveStartingId()
     }
 
     private fun onNext() {
@@ -95,7 +98,6 @@ class FeedRandomFragment : Fragment() {
 
     private fun onLoadFailed() {
         // nav to failure screen
-        Log.i("FeedRandomFragment", "Navigated")
         this.view?.let {
             findNavController().navigate(R.id.action_feedRandomFragment_to_errorFragment)
         }

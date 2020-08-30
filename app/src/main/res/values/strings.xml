@@ -4,4 +4,5 @@
     <string name="try_again">Повторить</string>
     <string name="try_again_description">Произошла ошибка при загрузке данных.
     Проверьте подключение к сети.</string>
+    <string name="saved_start_feed_id_key">startFeedIdKey</string>
 </resources>

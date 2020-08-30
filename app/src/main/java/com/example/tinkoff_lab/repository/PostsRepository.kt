@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import com.example.tinkoff_lab.api.DevelopersLifeApi
 import com.example.tinkoff_lab.api.Post
 import com.example.tinkoff_lab.database.PostsDatabase
-import com.example.tinkoff_lab.database.PostsDatabaseDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

@@ -1,12 +1,11 @@
 package com.example.tinkoff_lab.ui.error
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.tinkoff_lab.R
 import com.example.tinkoff_lab.databinding.FragmentErrorBinding
@@ -19,8 +18,6 @@ class ErrorFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        Log.i("ErrorFragment", "onCreateView")
 
         binding = DataBindingUtil.inflate(
             inflater,
