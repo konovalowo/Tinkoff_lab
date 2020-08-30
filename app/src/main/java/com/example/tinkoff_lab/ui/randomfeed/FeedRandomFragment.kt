@@ -40,8 +40,10 @@ class FeedRandomFragment : Fragment() {
         viewModel.post.observe(viewLifecycleOwner, Observer {
             updatePost(it)
             if (it.feedId > 1) {
+                binding.fabPrev.isEnabled = true
                 binding.fabPrev.show()
             } else {
+                binding.fabPrev.isEnabled = false
                 binding.fabPrev.hide()
             }
         })

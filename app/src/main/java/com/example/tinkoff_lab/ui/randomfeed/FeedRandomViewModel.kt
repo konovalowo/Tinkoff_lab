@@ -28,6 +28,7 @@ class FeedRandomViewModel(app: Application) : ViewModel() {
 //        get() = _previousAvailable
 
     init {
+        Log.i("FeedRandom", "Whoop")
         loadPost(null)
     }
 
@@ -39,7 +40,8 @@ class FeedRandomViewModel(app: Application) : ViewModel() {
     fun onPrevious() {
         // use cached
         val feedId = post.value?.feedId
-        loadPost(feedId?.minus(1))
+        if (feedId != null && feedId > 1)
+            loadPost(feedId.minus(1))
     }
 
     private fun loadPost(feedId: Int?) {
