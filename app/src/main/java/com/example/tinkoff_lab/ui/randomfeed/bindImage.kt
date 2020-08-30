@@ -21,9 +21,11 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
         val imgUri = Uri.parse(imgUrl.replace("http", "https"))
 
         val circularProgressDrawable = CircularProgressDrawable(imgView.context)
-        circularProgressDrawable.strokeWidth = 10f
-        circularProgressDrawable.centerRadius = 40f
-        circularProgressDrawable.start()
+        circularProgressDrawable.apply {
+            strokeWidth = 10f
+            centerRadius = 40f
+            start()
+        }
 
         Glide.with(imgView.context)
             .load(imgUri)

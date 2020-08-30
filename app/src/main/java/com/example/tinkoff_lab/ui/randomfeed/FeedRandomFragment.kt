@@ -12,8 +12,8 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.tinkoff_lab.R
 import com.example.tinkoff_lab.api.Post
-import com.example.tinkoff_lab.databinding.FeedRandomFragmentBinding
-import kotlinx.android.synthetic.main.feed_random_fragment.view.*
+import com.example.tinkoff_lab.databinding.FragmentFeedRandomBinding
+import kotlinx.android.synthetic.main.fragment_feed_random.view.*
 
 class FeedRandomFragment : Fragment() {
 
@@ -21,7 +21,7 @@ class FeedRandomFragment : Fragment() {
         fun newInstance() = FeedRandomFragment()
     }
 
-    private lateinit var binding: FeedRandomFragmentBinding
+    private lateinit var binding: FragmentFeedRandomBinding
 
     private lateinit var viewModel: FeedRandomViewModel
 
@@ -42,7 +42,7 @@ class FeedRandomFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.feed_random_fragment,
+            R.layout.fragment_feed_random,
             container,
             false
         )
@@ -50,6 +50,10 @@ class FeedRandomFragment : Fragment() {
         binding.fabNext.setOnClickListener {
             onNext()
             Log.i("FeedRandomFragment", "Fab pressed")
+        }
+
+        binding.fabPrev.setOnClickListener {
+            onPrevious()
         }
 
         // for image binding adapter

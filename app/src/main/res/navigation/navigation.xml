@@ -9,7 +9,7 @@
         android:id="@+id/feedRandomFragment"
         android:name="com.example.tinkoff_lab.ui.randomfeed.FeedRandomFragment"
         android:label="feed_random_fragment"
-        tools:layout="@layout/feed_random_fragment" >
+        tools:layout="@layout/fragment_feed_random" >
         <action
             android:id="@+id/action_feedRandomFragment_to_errorFragment"
             app:destination="@id/errorFragment"

@@ -1,6 +1,11 @@
 package com.example.tinkoff_lab.api
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "posts")
 data class Post(
+    @PrimaryKey(autoGenerate = true) val feedId: Int,
     val id: Int,
     val description: String,
     val votes: Int,
